@@ -394,7 +394,21 @@ if __name__ == "__main__":
     # we want to parse args BEFORE the main command as burst options
     # and pass all args AFTER the main command to the command when it runs remotely
     #
-    argv = sys.argv[1:]
+    # argv = sys.argv[1:]
+    # print ("AAA")
+    # try:
+    #     args, unknown = parser.parse_known_args(argv)
+    # except:
+    #     print ("CCC")
+    # print ("BBB")
+
+    i = 0
+    for i in range (1, len(sys.argv)-1):
+        if sys.argv[i][0] != '-':
+            break
+    argv = sys.argv[1:i+1]
+    print ("ARGV:", argv)
+    # exit()
     args, unknown = parser.parse_known_args(argv)
 
     if args.build and args.verbosity < 1:
@@ -407,7 +421,7 @@ if __name__ == "__main__":
     if args.command != None:
         i = argv.index(args.command)
     else:
-        i = len(argv)
+        i = len(sys.argv)
 
     burst_args = argv[:i]
     vvprint ("BURST ARGS:", burst_args)
@@ -415,7 +429,7 @@ if __name__ == "__main__":
     vvprint ("TASK ARGS:", cmdargs)
     args = parser.parse_args(burst_args)
     vvprint ("PARSED BURST ARGS:", args)
-
+    exit()
     if args.help:
         parser.print_help()
         sys.exit(1)
